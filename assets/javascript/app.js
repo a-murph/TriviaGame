@@ -29,7 +29,7 @@ var trivia = {
 				"Igglybuff",
 				"Patrat"
 			],
-			solution: 1
+			solution: 0
 		},
 		{
 			question: "Which of these type combinations has never been seen on a Pokemon before?",
@@ -69,7 +69,7 @@ var trivia = {
 				"Roselia",
 				"Nosepass"
 			],
-			solution: 0
+			solution: 1
 		},
 		{
 			question: "Which of these Pokemon is NOT a Steel type?",
@@ -216,16 +216,55 @@ var trivia = {
 
 	//show end screen
 	endGame: function() {
+		$("#game-area").attr("class", "hidden");
+		$("#result-area").attr("class", "hidden");
+		$("#end-screen").attr("class", "");
 
+		$("#right-answers").text("Correct Answers: " +this.rightCount);
+		$("#wrong-answers").text("Incorrect Answers: " +this.wrongCount);
+		$("#percent-right").text("Percentage Correct: " +Math.round((this.rightCount / this.questions.length) * 100) +"%");
+	},
+
+	//reset and restart game
+	resetGame: function() {
+		//empty out all changing text
+		$("#question").empty();
+		$("#answers").empty();
+		$("#result-area").empty();
+		$("#right-answers").empty();
+		$("#wrong-answers").empty();
+		$("#percent-right").empty();
+
+		//reset all variables
+		this.currentIndex = 0;
+		this.rightCount = 0;
+		this.wrongCount = 0;
+		this.currentQuestion = {};
+		this.chosenAnswer = "";
+		
+		//show / hide sections
+		$("#end-screen").attr("class", "hidden");
+		$("#result-area").attr("class", "hidden");
+		$("#game-area").attr("class", "");
+
+		//randomize question order and restart game
+		this.randomizeOrder();
+		this.showQuestion();
 	},
 }
 $(document).ready(function() {
-	//start game
+	//randomize question order and start game
+	trivia.randomizeOrder();
 	trivia.showQuestion();
 
 	//listener for clicking on an answer
 	$("body").on("click", ".answer", function() {
 		trivia.chosenAnswer = $(this).text();
 		trivia.progressGame();
+	});
+
+	//listener for restart button
+	$("body").on("click", "#restart-button", function() {
+		trivia.resetGame();
 	});
 });
