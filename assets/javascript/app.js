@@ -111,6 +111,10 @@ var trivia = {
 	currentIndex: 0,
 	//object of current question (i.e. questions[currentIndex])
 	currentQuestion: {},
+	//timer to count down
+	timer: 10,
+	//interval variable
+	interval: null,
 
 	//randomizes question order
 	randomizeOrder: function() {
@@ -143,6 +147,16 @@ var trivia = {
 			var newAns = $("<a href='#' class='answer'></a>").text(this.currentQuestion.answers[i]);
 			$("#answers").append(newAns);
 		}
+
+		//countdown timer
+		$("#countdown").text(trivia.timer);
+		this.interval = setInterval(function() {
+			trivia.timer--;
+			$("#countdown").text(trivia.timer);
+			if (trivia.timer <= 0) {
+				trivia.progressGame();
+			}
+		}, 1000);
 	},
 
 	//check for right/wrong answer and move to next question
@@ -151,6 +165,10 @@ var trivia = {
 		if (this.chosenAnswer == this.currentQuestion.answers[this.currentQuestion.solution]) {
 			this.rightCount++;
 			this.currentIndex++;
+
+			//reset timer
+			clearInterval(this.interval);
+			this.timer = 10;
 
 			//remove answers from game area and hide it
 			$("#answers").empty();
@@ -184,14 +202,29 @@ var trivia = {
 		else {
 			this.wrongCount++;
 			this.currentIndex++;
+
+			//reset timer
+			clearInterval(this.interval);
 			
 			//remove answers from game area and hide it
 			$("#answers").empty();
 			$("#game-area").attr("class", "hidden");
-	
-			//add text to result area and show it
-			$("#result-area").append("<h2>").text("Incorrect! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'");
-			$("#result-area").attr("class", "");
+			
+			//if time ran out
+			if (this.timer <= 0) {
+				//add text to result area and show it
+				$("#result-area").append("<h2>").text("Time Up! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'");
+				$("#result-area").attr("class", "");
+				this.timer = 10;
+			}
+			
+			//if wrong answer was chosen
+			else {
+				//add text to result area and show it
+				$("#result-area").append("<h2>").text("Incorrect! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'");
+				$("#result-area").attr("class", "");
+				this.timer = 10;
+			}
 
 			//run this after 5 seconds
 			setTimeout(function() {
@@ -216,6 +249,8 @@ var trivia = {
 
 	//show end screen
 	endGame: function() {
+		clearInterval(this.interval);
+
 		$("#game-area").attr("class", "hidden");
 		$("#result-area").attr("class", "hidden");
 		$("#end-screen").attr("class", "");
@@ -241,6 +276,8 @@ var trivia = {
 		this.wrongCount = 0;
 		this.currentQuestion = {};
 		this.chosenAnswer = "";
+		this.timer = 10;
+		clearInterval(this.interval);
 		
 		//show / hide sections
 		$("#end-screen").attr("class", "hidden");
