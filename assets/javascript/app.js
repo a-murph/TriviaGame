@@ -29,7 +29,7 @@ var trivia = {
 				"Igglybuff",
 				"Patrat"
 			],
-			solution: 3
+			solution: 1
 		},
 		{
 			question: "Which of these type combinations has never been seen on a Pokemon before?",
@@ -103,8 +103,10 @@ var trivia = {
 		},
 	],
 	//right and wrong answer counters
-	rightAnswers: 0,
-	wrongAnswers: 0,
+	rightCount: 0,
+	wrongCount: 0,
+	//chosen answer
+	chosenAnswer: "",
 	//index of current question
 	currentIndex: 0,
 	//object of current question (i.e. questions[currentIndex])
@@ -128,12 +130,102 @@ var trivia = {
 		}
 	},
 
+	//display new set of question and answers
 	showQuestion: function() {
+		//set currentQuestion
 		this.currentQuestion = this.questions[this.currentIndex];
+
+		//display question on page
 		$("#question").text(this.currentQuestion.question);
+
+		//display answers on page
 		for (var i = 0; i < this.currentQuestion.answers.length; i++) {
 			var newAns = $("<a href='#' class='answer'></a>").text(this.currentQuestion.answers[i]);
 			$("#answers").append(newAns);
 		}
-	}
+	},
+
+	//check for right/wrong answer and move to next question
+	progressGame: function() {
+		//CORRECT ANSWER LOGIC:
+		if (this.chosenAnswer == this.currentQuestion.answers[this.currentQuestion.solution]) {
+			this.rightCount++;
+			this.currentIndex++;
+
+			//remove answers from game area and hide it
+			$("#answers").empty();
+			$("#game-area").attr("class", "hidden");
+
+			//add text to result area and show it
+			$("#result-area").append("<h2>").text("Correct! You picked the right answer.");
+			$("#result-area").attr("class", "");
+			
+			//run this after 5 seconds
+			setTimeout(function() {
+				//if at the end of questions array
+				if (trivia.currentIndex >= trivia.questions.length) {
+					trivia.endGame();
+				}
+				
+				//if not at the end
+				else {
+					//hide result area and show game area
+					$("#result-area").empty();
+					$("#result-area").attr("class", "hidden");
+					$("#game-area").attr("class", "");
+					
+					//show next question
+					trivia.showQuestion();
+				}
+			}, 5000);
+		}
+		
+		//WRONG ANSWER / TIMEOUT LOGIC:
+		else {
+			this.wrongCount++;
+			this.currentIndex++;
+			
+			//remove answers from game area and hide it
+			$("#answers").empty();
+			$("#game-area").attr("class", "hidden");
+	
+			//add text to result area and show it
+			$("#result-area").append("<h2>").text("Incorrect! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'");
+			$("#result-area").attr("class", "");
+
+			//run this after 5 seconds
+			setTimeout(function() {
+				//if at the end of questions array
+				if (trivia.currentIndex >= trivia.questions.length) {
+					trivia.endGame();
+				}
+				
+				//if not at the end
+				else {
+					//hide result area and show game area
+					$("#result-area").empty();
+					$("#result-area").attr("class", "hidden");
+					$("#game-area").attr("class", "");
+	
+					//show next question
+					trivia.showQuestion();
+				}
+			}, 5000);
+		}
+	},
+
+	//show end screen
+	endGame: function() {
+
+	},
 }
+$(document).ready(function() {
+	//start game
+	trivia.showQuestion();
+
+	//listener for clicking on an answer
+	$("body").on("click", ".answer", function() {
+		trivia.chosenAnswer = $(this).text();
+		trivia.progressGame();
+	});
+});
