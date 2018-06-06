@@ -5,3 +5,7 @@
 .hidden {
 	display: none;
 }
+.answer {
+	text-decoration: none;
+	display: block;
+}
