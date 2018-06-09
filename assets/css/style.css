@@ -54,3 +54,17 @@ body {
 #result-area h4 {
 	font-size: 18px;
 }
+
+/* END SCREEN */
+#end-screen h2 {
+	font-size: 28px;
+	line-height: 50px;
+}
+#end-screen h4 {
+	font-size: 22px;
+	margin-bottom: 12px;
+}
+#restart-button {
+	font-size: 20px;
+	width: 120px;
+}
