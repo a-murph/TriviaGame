@@ -9,7 +9,8 @@ var trivia = {
 				"Heal Freeze",
 				"Nothing, it's just a Poffin ingredient"
 			],
-			solution: 0
+			solution: 0,
+			image: "rawst-berry"
 		},
 		{
 			question: "Which of these is NOT a Psychic-type move?",
@@ -19,7 +20,8 @@ var trivia = {
 				"Psych-Up",
 				"Imprison"
 			],
-			solution: 2
+			solution: 2,
+			image: "psychic-logo"
 		},
 		{
 			question: "Which of these Pokemon was introduced in Generation 4 (Diamond & Pearl)?",
@@ -29,7 +31,8 @@ var trivia = {
 				"Igglybuff",
 				"Patrat"
 			],
-			solution: 0
+			solution: 0,
+			image: "skitty"
 		},
 		{
 			question: "Which of these type combinations has never been seen on a Pokemon before?",
@@ -39,7 +42,8 @@ var trivia = {
 				"Electric / Fire",
 				"Bug / Dark"
 			],
-			solution: 3
+			solution: 3,
+			image: "types"
 		},
 		{
 			question: "Which of these is NOT a method of evolution for at least one Pokemon?",
@@ -49,7 +53,8 @@ var trivia = {
 				"Level up with a specific other Pokemon in the party",
 				"Level up while the game system is upside-down"
 			],
-			solution: 1
+			solution: 1,
+			image: "evo-stones"
 		},
 		{
 			question: "How many forms does Unown have?",
@@ -59,7 +64,8 @@ var trivia = {
 				"28",
 				"29"
 			],
-			solution: 2
+			solution: 2,
+			image: "unown"
 		},
 		{
 			question: "Which of these Pokemon is NOT a middle evolution?",
@@ -69,7 +75,8 @@ var trivia = {
 				"Roselia",
 				"Piloswine"
 			],
-			solution: 1
+			solution: 1,
+			image: "jigglypuff"
 		},
 		{
 			question: "Which of these Pokemon is NOT a Steel type?",
@@ -79,7 +86,8 @@ var trivia = {
 				"Genesect",
 				"Porygon-Z"
 			],
-			solution: 3
+			solution: 3,
+			image: "jirachi"
 		},
 		{
 			question: "Which of these is NOT the name of a real Pokemon?",
@@ -89,7 +97,8 @@ var trivia = {
 				"Blacephalon",
 				"Cryogonal"
 			],
-			solution: 0
+			solution: 0,
+			image: "whos-that"
 		},
 		{
 			question: "Which of these moves has the highest Attack Power?",
@@ -99,7 +108,8 @@ var trivia = {
 				"Hyper Beam",
 				"V-Create"
 			],
-			solution: 1
+			solution: 1,
+			image: "hyper-beam"
 		},
 	],
 	//right and wrong answer counters
@@ -147,6 +157,9 @@ var trivia = {
 			var newAns = $("<a href='#' class='answer'>").text(this.currentQuestion.answers[i]);
 			$("#answers").append(newAns);
 		}
+
+		//display image
+		$("#question-image").attr("src", "assets/images/"+this.currentQuestion.image+".png");
 
 		//countdown timer
 		$("#countdown").text(trivia.timer);
