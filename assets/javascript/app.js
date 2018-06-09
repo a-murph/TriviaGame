@@ -44,10 +44,10 @@ var trivia = {
 		{
 			question: "Which of these is NOT a method of evolution for at least one Pokemon?",
 			answers: [
-				"Trading for a specific other Pokemon",
-				"Trading while above a certain level of Happiness",
-				"Leveling up with a specific other Pokemon in the party",
-				"Leveling up while the game system is upside-down"
+				"Trade for a specific other Pokemon",
+				"Trade while above a certain level of Happiness",
+				"Level up with a specific other Pokemon in the party",
+				"Level up while the game system is upside-down"
 			],
 			solution: 1
 		},
@@ -175,7 +175,7 @@ var trivia = {
 			$("#game-area").attr("class", "hidden");
 
 			//add text to result area and show it
-			$("#result-area").append("<h2>").text("Correct! You picked the right answer.");
+			$("#result-area").append("<h2>Correct! You picked the right answer.</h2>");
 			$("#result-area").append("<h4>Next question in 3 seconds...</h4>");
 			$("#result-area").attr("class", "");
 			
@@ -214,7 +214,7 @@ var trivia = {
 			//if time ran out
 			if (this.timer <= 0) {
 				//add text to result area and show it
-				$("#result-area").append("<h2>").text("Time Up! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'");
+				$("#result-area").append("<h2>Time Up! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'</h2>");
 				$("#result-area").append("<h4>Next question in 3 seconds...</h4>");
 				$("#result-area").attr("class", "");
 				this.timer = 10;
@@ -223,7 +223,7 @@ var trivia = {
 			//if wrong answer was chosen
 			else {
 				//add text to result area and show it
-				$("#result-area").append("<h2>").text("Incorrect! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'");
+				$("#result-area").append("<h2>Incorrect! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'</h2>");
 				$("#result-area").append("<h4>Next question in 3 seconds...</h4>");
 				$("#result-area").attr("class", "");
 				this.timer = 10;
