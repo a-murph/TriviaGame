@@ -1,11 +1,56 @@
+/* ALl SCREENS */
+body {
+	margin-top: 10px;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
 .container {
+	background: #bbb;
 	width: 900px;
 	margin: 0 auto;
+	border: 1px solid #333;
 }
 .hidden {
 	display: none;
 }
+#game-area, #result-area, #end-screen {
+	height: 450px;
+}
+
+/* TITLE */
+#title {
+	height: 60px;
+	line-height: 60px;
+	font-size: 32px;
+	font-weight: bold;
+}
+
+/* GAME AREA */
+#question {
+	height: 50px;
+	line-height: 50px;
+	font-size: 24px;
+}
 .answer {
+	margin: 15px;
 	text-decoration: none;
-	display: block;
+	display: inline-block;
+	color: #333;
+	font-weight: bold;
+	padding: 5px;
+	border: 1px solid #333;
+	width: 400px;
+}
+#timer {
+	margin-top: 13px;
+	font-size: 20px;
+}
+
+/* RESULT AREA */
+#result-area h2 {
+	font-size: 24px;
+	line-height: 50px;
+}
+#result-area h4 {
+	font-size: 18px;
 }
