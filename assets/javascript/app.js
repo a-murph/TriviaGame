@@ -67,7 +67,7 @@ var trivia = {
 				"Jigglypuff",
 				"Linoone",
 				"Roselia",
-				"Nosepass"
+				"Piloswine"
 			],
 			solution: 1
 		},
@@ -144,7 +144,7 @@ var trivia = {
 
 		//display answers on page
 		for (var i = 0; i < this.currentQuestion.answers.length; i++) {
-			var newAns = $("<a href='#' class='answer'></a>").text(this.currentQuestion.answers[i]);
+			var newAns = $("<a href='#' class='answer'>").text(this.currentQuestion.answers[i]);
 			$("#answers").append(newAns);
 		}
 
@@ -176,6 +176,7 @@ var trivia = {
 
 			//add text to result area and show it
 			$("#result-area").append("<h2>").text("Correct! You picked the right answer.");
+			$("#result-area").append("<h4>Next question in 3 seconds...</h4>");
 			$("#result-area").attr("class", "");
 			
 			//run this after 5 seconds
@@ -195,7 +196,7 @@ var trivia = {
 					//show next question
 					trivia.showQuestion();
 				}
-			}, 5000);
+			}, 3000);
 		}
 		
 		//WRONG ANSWER / TIMEOUT LOGIC:
@@ -214,6 +215,7 @@ var trivia = {
 			if (this.timer <= 0) {
 				//add text to result area and show it
 				$("#result-area").append("<h2>").text("Time Up! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'");
+				$("#result-area").append("<h4>Next question in 3 seconds...</h4>");
 				$("#result-area").attr("class", "");
 				this.timer = 10;
 			}
@@ -222,6 +224,7 @@ var trivia = {
 			else {
 				//add text to result area and show it
 				$("#result-area").append("<h2>").text("Incorrect! The correct answer was: '" +this.currentQuestion.answers[this.currentQuestion.solution] +"'");
+				$("#result-area").append("<h4>Next question in 3 seconds...</h4>");
 				$("#result-area").attr("class", "");
 				this.timer = 10;
 			}
@@ -243,7 +246,7 @@ var trivia = {
 					//show next question
 					trivia.showQuestion();
 				}
-			}, 5000);
+			}, 3000);
 		}
 	},
 
